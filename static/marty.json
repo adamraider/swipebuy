@@ -1,0 +1,16 @@
+{
+  "messages": [
+    {
+      "type": "text",
+      "text": "Hey, it's Marty"
+    },
+    {
+      "type": "text",
+      "text": "I’m selling my limited edition hoverboards. Want one?"
+    },
+    {
+      "type": "graphic",
+      "text": "Hoverboard v2"
+    }
+  ]
+}
