@@ -17,9 +17,11 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import '../sass/vars'
+
 .contact
   width: 100%
-  height: 4rem
+  height: $contactBar-height
   display: flex
   background-color: #F9F9F9
   border-bottom: 1px solid #D9D9D9

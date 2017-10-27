@@ -1,16 +1,33 @@
 {
-  "messages": [
-    {
-      "type": "text",
-      "text": "Hey, it's Marty"
-    },
-    {
-      "type": "text",
-      "text": "I’m selling my limited edition hoverboards. Want one?"
-    },
-    {
-      "type": "graphic",
-      "text": "Hoverboard v2"
-    }
-  ]
+  "intro": {
+    "messages": [
+      {
+        "type": "text",
+        "text": "Hey, it's Marty",
+        "author": "brand"
+      },
+      {
+        "type": "text",
+        "text": "I’m selling my limited edition hoverboards. Want one?",
+        "author": "brand"
+      },
+      {
+        "type": "graphic",
+        "text": "Hoverboard v2",
+        "author": "brand"
+      }
+    ],
+    "actions": [
+      {
+        "text": "No",
+        "type": "secondary",
+        "order": 0
+      },
+      {
+        "text": "Yes",
+        "type": "primary",
+        "order": 1
+      }
+    ]
+  }
 }
