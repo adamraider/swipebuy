@@ -1,18 +1,21 @@
 <template lang="pug">
   #app
-    ContactBar
-    Conversation
+    //- ContactBar
+    //- Conversation
+    ProductDetail
 </template>
 
 <script>
 import ContactBar from './components/ContactBar'
 import Conversation from './components/Conversation'
+import ProductDetail from './components/ProductDetail'
 
 export default {
   name: 'app',
   components: {
     ContactBar,
-    Conversation
+    Conversation,
+    ProductDetail
   }
 }
 </script>

@@ -35,11 +35,9 @@ export default {
     pushMessage (arr, index, timeout = 1800) {
       const message = arr[index]
       Vue.set(message, 'typing', true)
-      console.log(message.text)
       this.history.push(message)
       setTimeout(() => {
         Vue.set(message, 'typing', false)
-        console.log(message.text)
         if (arr[index + 1]) {
           setTimeout(() => {
             this.pushMessage(arr, index + 1)
