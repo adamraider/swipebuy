@@ -1,15 +1,15 @@
 <template lang="pug">
   .message(:class="classes")
-    template(v-if="message.typing") #[.dot] #[.dot] #[.dot]
+    template(v-if="typing") #[.dot] #[.dot] #[.dot]
     template(v-else)
       template(v-if="message.type === 'text'")
         span {{ message.text }}
       template(v-if="message.type === 'graphic'")
-        .message__graphic
+        .message__graphic(@click="openProductDetail()")
           .message__graphic__text {{ message.text }}
           .message__graphic__image
           .message__graphic__overlay
-        .message__details Details
+        .message__details(@click="openProductDetail()") Details
 </template>
 
 <script>
@@ -19,6 +19,11 @@ export default {
     message: {
       required: true,
       type: Object
+    }
+  },
+  methods: {
+    openProductDetail () {
+      this.$store.commit('OPEN_PRODUCT_DETAIL')
     }
   },
   computed: {
@@ -54,7 +59,7 @@ export default {
   position: relative
   animation: popin
   animation-duration: 0.2s
-  animation-timing-function: cubic-bezier(.0,.0,.58,1)
+  animation-timing-function: cubic-bezier(.0,.0,.83,.67)
   &--brand
     transform-origin: left
   

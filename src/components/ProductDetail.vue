@@ -1,5 +1,5 @@
 <template lang="pug">
-  .product
+  .product(@click="closeProductDetail()")
     .product__image
     .product__info
       .product__info__primary
@@ -27,6 +27,11 @@ export default {
       price: '$1,499',
       description: 'Brand new McFly Hoverboard v2 Signature Edition. Autographed by Marty McFly. Top speed 30 MPH, nuclear powered.'
     }
+  },
+  methods: {
+    closeProductDetail () {
+      this.$store.commit('CLOSE_PRODUCT_DETAIL')
+    }
   }
 }
 </script>
@@ -38,6 +43,13 @@ export default {
   display: flex
   flex-direction: column
   font-size: 1rem
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  z-index: 100
+  background-color: #fff
   &__image
     width: 100% 
     padding-bottom: 100%

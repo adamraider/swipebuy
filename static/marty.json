@@ -1,9 +1,24 @@
 {
-  "intro": {
+  "introduction": {
     "messages": [
       {
         "type": "text",
         "text": "Hey, it's Marty",
+        "author": "brand"
+      },
+      {
+        "type": "text",
+        "text": "I’m selling my limited edition hoverboards. Want one?",
+        "author": "brand"
+      },
+      {
+        "type": "text",
+        "text": "I’m selling my limited edition hoverboards. Want one?",
+        "author": "brand"
+      },
+      {
+        "type": "text",
+        "text": "I’m selling my limited edition hoverboards. Want one?",
         "author": "brand"
       },
       {
@@ -17,17 +32,74 @@
         "author": "brand"
       }
     ],
-    "actions": [
+    "action": {
+      "type": "Boolean",
+      "options": [
+        {
+          "text": "No",
+          "type": "secondary",
+          "order": 0
+        },
+        {
+          "text": "Yes",
+          "type": "primary",
+          "order": 1
+        }
+      ]
+    }
+  },
+  
+  "address": {
+    "messages": [
       {
-        "text": "No",
-        "type": "secondary",
-        "order": 0
+        "type": "text",
+        "text": "Sweet! Where should I ship it to?",
+        "author": "brand"
+      }
+    ],
+    "action": {
+      "type": "address"
+    }
+  },
+
+  "payment": {
+    "messages": [
+      {
+        "type": "text",
+        "text": "Thanks! Your total is $249 + $20 shipping.",
+        "author": "brand"
       },
       {
-        "text": "Yes",
-        "type": "primary",
-        "order": 1
+        "type": "text",
+        "text": "What's your payment info, homie?",
+        "author": "brand"
       }
-    ]
+    ],
+    "actions": {
+      "type": "payment"
+    }
+  },
+
+  "receipt": {
+    "messages": [
+      {
+        "type": "text",
+        "text": "Boom, I emailed you a reciept. You;'ll get the item in 3-5 days.",
+        "author": "brand"
+      },
+      {
+        "type": "text",
+        "text": "Let's keep in touch https://twitter.com/mcfly",
+        "author": "brand"
+      },
+      {
+        "type": "text",
+        "text": "Seeya!",
+        "author": "brand"
+      }
+    ],
+    "actions": {
+      "type": "payment"
+    }
   }
 }
