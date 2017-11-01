@@ -1,34 +1,46 @@
 <template lang="pug">
-  .actions(v-if="chatActionable")
+  .actions(ref="fields")
     .btn(v-for="action in availableActions", @click="next($event)", :class="{ 'btn--primary': action.type === 'primary', 'btn--secondary': action.type === 'secondary' }") {{ action.text }}
 </template>
 
 <script>
-import _ from 'lodash'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'Action',
+  data () {
+    return {
+      syncHeight: true
+    }
+  },
   methods: {
     next (e) {
+      const classList = e.target.classList
+      classList.add('btn--clicked')
       this.$store.commit('CLOSE_ACTION')
       this.$store.commit('PUSH_MESSAGE', {
         author: 'user',
         text: 'Yea!',
         type: 'text'
       })
-      const classList = e.target.classList
-      classList.add('btn--clicked')
-      setTimeout(() => {
-        this.$store.dispatch('renderPhrase', {
-          arr: _.cloneDeep(this.$store.state.merchant.address.messages),
-          index: 0,
-          timeout: process.env.PHRASE_TIMEOUT
-        })
-      }, process.env.PHRASE_TIMEOUT)
+      this.$store.dispatch('next')
+    },
+    setHeight () {
+      this.$store.dispatch('animateChatOffset', { offsetHeight: this.height })
+    }
+  },
+  mounted () {
+    this.setHeight()
+  },
+  updated () {
+    if (this.syncHeight) {
+      this.setHeight()
     }
   },
   computed: {
+    height () {
+      return this.$refs.fields.offsetHeight
+    },
     ...mapGetters([
       'chatActionable',
       'availableActions'
@@ -49,7 +61,7 @@ export default {
   flex-direction: row
   padding: 1.5rem
   animation: actionsIn
-  animation-duration: 0.75s
+  animation-duration: 0.25s
   position: fixed
   bottom: 0
   z-index: 10

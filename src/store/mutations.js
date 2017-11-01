@@ -1,6 +1,22 @@
 import Vue from 'vue'
 import _ from 'lodash'
 
+function nextAction (currentAction) {
+  switch (currentAction) {
+    case null:
+      return 'buy'
+
+    case 'buy':
+      return 'address'
+
+    case 'address':
+      return 'payment'
+
+    case 'payment':
+      return 'receipt'
+  }
+}
+
 export const CHANGE_STATE = (state, newState) => {
   state.currentState = newState
 }
@@ -26,6 +42,7 @@ export const STOP_TYPING = (state, messageId) => {
 
 export const OPEN_ACTION = (state) => {
   state.chatActionable = true
+  state.actionStep = nextAction(state.actionStep)
 }
 
 export const CLOSE_ACTION = (state) => {
@@ -38,6 +55,10 @@ export const OPEN_PRODUCT_DETAIL = (state) => {
 
 export const CLOSE_PRODUCT_DETAIL = (state) => {
   state.productDetailOpen = false
+}
+
+export const SET_CHAT_OFFSET = (state, offset) => {
+  state.chatHeightOffset = offset
 }
 
 function uniqueId () {

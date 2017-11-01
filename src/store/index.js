@@ -10,8 +10,10 @@ Vue.use(Vuex)
 const state = {
   merchant: null,
   chatHistory: [],
+  actionStep: null,
   chatActionable: false,
-  productDetailOpen: false
+  productDetailOpen: false,
+  chatHeightOffset: 0
 }
 
 const debug = process.env.NODE_ENV !== 'production'

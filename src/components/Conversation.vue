@@ -1,50 +1,27 @@
 <template lang="pug">
-  .conversation(ref="conversation", :class="{ 'conversation--action': chatActionable }")
+  .conversation(ref="conversation", :class="{ 'conversation--action': chatActionable }", :style="conversationStyle")
     message(v-for="(m, index) in chatHistory", :message="m", key="index")
 </template>
 
 <script>
 import Message from '@/components/Message'
-import _ from 'lodash'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'Conversation',
   components: { Message },
-  methods: {
-    next (e) {
-      this.$store.commit('CLOSE_ACTION')
-      this.$store.commit('PUSH_MESSAGE', {
-        author: 'user',
-        text: 'Yea!',
-        type: 'text'
-      })
-      const classList = e.target.classList
-      classList.add('btn--clicked')
-      setTimeout(() => {
-        this.$store.dispatch('renderPhrase', {
-          arr: _.cloneDeep(this.$store.state.merchant.address.messages),
-          index: 0,
-          timeout: process.env.PHRASE_TIMEOUT
-        })
-      }, process.env.PHRASE_TIMEOUT)
-    }
-  },
-  watch: {
-    chatHistory: {
-      handler: _.debounce(function (history) {
-        const yOffset = this.$refs.conversation.offsetHeight
-        window.scrollTo(0, yOffset)
-      }, 10),
-      deep: true
-    }
-  },
   computed: {
+    conversationStyle () {
+      const offset = this.chatActionable ? this.chatHeightOffset : 0
+      return {
+        // 1rem for spacing, 4rem for the contact bar
+        paddingBottom: `calc(${offset}px + 5rem)`
+      }
+    },
     ...mapGetters([
       'chatActionable',
       'chatHistory',
-      'availableActions',
-      'typing'
+      'chatHeightOffset'
     ])
   }
 }
@@ -57,10 +34,9 @@ export default {
   background-color: #fff
   display: flex
   flex-direction: column
+  margin-top: 4rem
   padding-top: 1rem
   align-items: flex-start
   flex-direction: column
-  min-height: calc(100vh - #{$contactBar-height})
-  &--action
-    padding-bottom: calc(94px + 1rem)
+  transition: padding-bottom 0.25s ease
 </style>

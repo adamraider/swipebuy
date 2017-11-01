@@ -3,8 +3,9 @@
     ContactBar
     Conversation
     ProductDetail(v-if="productDetailOpen")
-    Action(v-if="chatActionable && !productDetailOpen")
-    Fields
+    Action(v-if="showAction")
+    Fields(v-if="showAddress")
+    Payment(v-if="showPayment")
 </template>
 
 <script>
@@ -16,6 +17,7 @@ import Conversation from './components/Conversation'
 import ProductDetail from './components/ProductDetail'
 import Action from './components/Action'
 import Fields from './components/Fields'
+import Payment from './components/Payment'
 
 export default {
   name: 'app',
@@ -24,7 +26,8 @@ export default {
     Conversation,
     ProductDetail,
     Action,
-    Fields
+    Fields,
+    Payment
   },
   data () {
     return {
@@ -35,9 +38,28 @@ export default {
     marty().then(marty => {
       this.$store.dispatch('setupMerchant', { merchant: marty })
     })
+    this.scroller()
+  },
+  methods: {
+    scroller () {
+      setTimeout(() => {
+        window.scrollTo(0, 10000)
+        this.scroller()
+      }, 10)
+    }
   },
   computed: {
+    showAction () {
+      return this.chatActionable && !this.productDetailOpen && this.actionStep === 'buy'
+    },
+    showAddress () {
+      return this.chatActionable && !this.productDetailOpen && this.actionStep === 'address'
+    },
+    showPayment () {
+      return this.chatActionable && !this.productDetailOpen && this.actionStep === 'payment'
+    },
     ...mapGetters([
+      'actionStep',
       'chatActionable',
       'productDetailOpen'
     ])
@@ -46,6 +68,9 @@ export default {
 </script>
 
 <style lang="sass">
+@import './sass/vars'
 @import '../node_modules/normalize.css/normalize.css'
 @import './sass/base'
+@import './assets/icomoon/variables'
+@import './assets/icomoon/style'
 </style>

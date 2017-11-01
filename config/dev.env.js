@@ -5,5 +5,5 @@ const prodEnv = require('./prod.env')
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
   PHRASE_TIMEOUT: '420',
-  MESSAGE_TIMEOUT: '100' // '1150'
+  MESSAGE_TIMEOUT: '800' // '1150'
 })

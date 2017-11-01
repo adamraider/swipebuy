@@ -1,5 +1,6 @@
 <template lang="pug">
-  .product(@click="closeProductDetail()")
+  .product
+    .product__close(@click="closeProductDetail()"): i.icon-x
     .product__image
     .product__info
       .product__info__primary
@@ -50,6 +51,17 @@ export default {
   bottom: 0
   z-index: 100
   background-color: #fff
+  animation: popin
+  animation-duration: 0.35s
+  &__close
+    position: absolute
+    top: 1rem
+    right: 1rem
+    font-size: 1.5em
+    color: #fff
+    text-shadow: 0 1px 1px rgba(0,0,0,0.25)
+    cursor: pointer
+
   &__image
     width: 100% 
     padding-bottom: 100%
@@ -105,4 +117,13 @@ export default {
         background-color: #FF6FA2
       &--neon
         background-color: #50E3C2
+
+@keyframes popin
+  0%
+    transform: scale(0.9)
+    opacity: 0
+  100%
+    transform: scale(1)
+    opacity: 1
+
 </style>

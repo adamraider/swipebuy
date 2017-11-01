@@ -12,21 +12,6 @@
         "author": "brand"
       },
       {
-        "type": "text",
-        "text": "I’m selling my limited edition hoverboards. Want one?",
-        "author": "brand"
-      },
-      {
-        "type": "text",
-        "text": "I’m selling my limited edition hoverboards. Want one?",
-        "author": "brand"
-      },
-      {
-        "type": "text",
-        "text": "I’m selling my limited edition hoverboards. Want one?",
-        "author": "brand"
-      },
-      {
         "type": "graphic",
         "text": "Hoverboard v2",
         "author": "brand"
@@ -84,7 +69,7 @@
     "messages": [
       {
         "type": "text",
-        "text": "Boom, I emailed you a reciept. You;'ll get the item in 3-5 days.",
+        "text": "Boom, I emailed you a reciept. You'll get the item in 3-5 days.",
         "author": "brand"
       },
       {

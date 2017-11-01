@@ -2,12 +2,17 @@
   .fields
     .fields__content(@submit.prevent="")
       form.fields__inner(ref="fields", @submit.prevent="next()")
-        input(type="text" placeholder="Street Address")
-        input(type="text" placeholder="Apartment #")
-        input(type="text" placeholder="State")
-        input(type="text" placeholder="City")
-        button(type="submit") Done
-        //- button(type="submit") Cancel
+        input(type="text" placeholder="Email")
+        input(type="text" placeholder="Card Number")
+        .inputs__flex
+          input(type="text" placeholder="MM/YY")
+          input(type="text" placeholder="CVC")
+        .encryption
+          .encryption__icon: i.icon-lock
+          .encryption__text This website uses 256-bit SSL encryption. Your info is safe.
+
+        button(type="submit") Purchase
+        button.btn--secondary(type="submit") Cancel
 </template>
 
 <script>
@@ -15,7 +20,7 @@
 // import { mapGetters } from 'vuex'
 
 export default {
-  name: 'Fields',
+  name: 'Payment',
   mounted () {
     this.setHeight()
   },
@@ -30,7 +35,7 @@ export default {
       this.$store.commit('CLOSE_ACTION')
       this.$store.commit('PUSH_MESSAGE', {
         author: 'user',
-        text: '20 West Derp St., 10232, New York NY!',
+        text: 'Done',
         type: 'text'
       })
       this.$store.dispatch('next')
@@ -83,6 +88,31 @@ $padding: 2rem
     color: #fff
     padding: 0.7rem 1.6rem
     border-radius: 10rem
+  
+  .btn--secondary
+    background: none
+    color: rgba(0,0,0,0.5)
+    font-size: 0.85rem
+    padding: 0
+    margin-top: 0.85rem
+
+.encryption
+  margin-top: 0.25rem
+  margin-bottom: 0.75rem
+  display: flex
+  align-items: center
+  opacity: 0.5
+  &__icon
+    font-size: 1rem
+    margin-right: 0.5rem
+  &__text
+    font-size: 0.75rem
+
+.inputs__flex
+  display: flex
+  input
+    &:not(:last-child)
+      margin-right: 0.5rem
 
 @keyframes actionsIn
   0%

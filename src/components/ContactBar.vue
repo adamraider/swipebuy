@@ -3,6 +3,7 @@
     .brand
       .brand__image
       .brand__name Marty McFly
+    .about: i.icon-help-circle
 </template>
 
 <script>
@@ -26,6 +27,11 @@ export default {
   background-color: #F9F9F9
   border-bottom: 1px solid #D9D9D9
   font-size: 1rem
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  z-index: 10
 
 .brand
   margin: 0 auto
@@ -43,4 +49,15 @@ export default {
   &__name
     font-size: 0.75em
 
+.about
+  display: flex;
+  align-items: center;
+  margin-right: 0.75rem;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  font-size: 1.25rem;
+  top: 0;
+  bottom: 0;
+  opacity: 0.5;
 </style>
