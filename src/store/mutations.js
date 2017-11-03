@@ -61,6 +61,10 @@ export const SET_CHAT_OFFSET = (state, offset) => {
   state.chatHeightOffset = offset
 }
 
+export const APP_READY = (state) => {
+  state.loading = false
+}
+
 function uniqueId () {
   const randomNumber = Math.floor(Math.random() * 1000)
   const date = new Date().getTime()

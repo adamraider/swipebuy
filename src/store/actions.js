@@ -16,6 +16,7 @@ function nextStep (step) {
 export const setupMerchant = (store, payload) => {
   store.commit('INIT_MERCHANT', payload.merchant)
   store.commit('CHANGE_STATE', 'introduction')
+  store.commit('APP_READY')
   store.dispatch('renderPhrase', {
     arr: _.cloneDeep(payload.merchant[store.state.currentState].messages),
     index: 0,
@@ -42,7 +43,9 @@ export function renderPhrase (store, payload) {
         })
       }, process.env.MESSAGE_TIMEOUT)
     } else {
-      store.commit('OPEN_ACTION')
+      setTimeout(() => {
+        store.commit('OPEN_ACTION')
+      }, process.env.MESSAGE_TIMEOUT)
     }
   }, timeout)
 }

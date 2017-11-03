@@ -2,10 +2,10 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import VeeValidate from 'vee-validate'
 import { store } from './store'
 
-import VueChatScroll from 'vue-chat-scroll'
-Vue.use(VueChatScroll)
+Vue.use(VeeValidate)
 
 Vue.config.productionTip = false
 

@@ -1,4 +1,14 @@
 {
+  "brand": {
+    "name": "Marty McFly",
+    "avatar": "/static/marty.png"
+  },
+  "item": {
+    "image": "/static/hoverboard.png",
+    "name": "Hoverboard v2",
+    "price": "$1,499",
+    "description": "Brand new McFly Hoverboard v2 Signature Edition. Autographed by Marty McFly. Top speed 30 MPH, nuclear powered."
+  },
   "introduction": {
     "messages": [
       {
@@ -82,9 +92,21 @@
         "text": "Seeya!",
         "author": "brand"
       }
-    ],
-    "actions": {
-      "type": "payment"
-    }
+    ]
+  },
+
+  "abandon": {
+    "messages": [
+      {
+        "type": "text",
+        "text": "What's it going to be? Are you in or out?",
+        "author": "brand"
+      },
+      {
+        "type": "text",
+        "text": "Ah maybe next time, seeya!",
+        "author": "brand"
+      }
+    ]
   }
 }

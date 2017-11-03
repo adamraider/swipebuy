@@ -1,12 +1,12 @@
 <template lang="pug">
   .product
     .product__close(@click="closeProductDetail()"): i.icon-x
-    .product__image
+    .product__image(:style="{ backgroundImage: `url(${itemImage})` }")
     .product__info
       .product__info__primary
-        .product__name {{ name }}
-        .product__price {{ price }}
-      .product__info__description {{ description }}
+        .product__name {{ itemName }}
+        .product__price {{ itemPrice }}
+      .product__info__description {{ itemDescription }}
       .product__types
         .product__type
           .product__type__name Colors
@@ -22,11 +22,21 @@
 <script>
 export default {
   name: 'ProductDetail',
-  data () {
-    return {
-      name: 'Hoverboard v2',
-      price: '$1,499',
-      description: 'Brand new McFly Hoverboard v2 Signature Edition. Autographed by Marty McFly. Top speed 30 MPH, nuclear powered.'
+  props: {
+    itemName: {
+      required: true,
+      type: String
+    },
+    itemPrice: {
+      required: true,
+      type: String
+    },
+    itemImage: {
+      required: true,
+      type: String
+    },
+    itemDescription: {
+      type: String
     }
   },
   methods: {
@@ -65,7 +75,6 @@ export default {
   &__image
     width: 100% 
     padding-bottom: 100%
-    background-image: url(../assets/hoverboard.png)
     background-size: cover
     background-position: center
 

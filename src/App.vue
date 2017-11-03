@@ -1,11 +1,15 @@
 <template lang="pug">
   #app
-    ContactBar
-    Conversation
-    ProductDetail(v-if="productDetailOpen")
-    Action(v-if="showAction")
-    Fields(v-if="showAddress")
-    Payment(v-if="showPayment")
+    template(v-if="loading")
+      span loading
+    template(v-else)
+      ContactBar(:brandName="brandName", :brandImage="brandImage")
+      Conversation
+      ProductDetail(v-if="productDetailOpen", :itemName="itemName", :itemImage="itemImage", :itemDescription="itemDescription", :itemPrice="itemPrice")
+      Action(v-if="showAction")
+      Fields(v-if="showAddress")
+      Payment(v-if="showPayment")
+
 </template>
 
 <script>
@@ -38,15 +42,6 @@ export default {
     marty().then(marty => {
       this.$store.dispatch('setupMerchant', { merchant: marty })
     })
-    this.scroller()
-  },
-  methods: {
-    scroller () {
-      setTimeout(() => {
-        window.scrollTo(0, 10000)
-        this.scroller()
-      }, 10)
-    }
   },
   computed: {
     showAction () {
@@ -61,7 +56,14 @@ export default {
     ...mapGetters([
       'actionStep',
       'chatActionable',
-      'productDetailOpen'
+      'productDetailOpen',
+      'brandName',
+      'brandImage',
+      'itemName',
+      'itemImage',
+      'itemPrice',
+      'itemDescription',
+      'loading'
     ])
   }
 }
@@ -70,7 +72,9 @@ export default {
 <style lang="sass">
 @import './sass/vars'
 @import '../node_modules/normalize.css/normalize.css'
+@import './sass/fonts'
 @import './sass/base'
+@import './sass/forms'
 @import './assets/icomoon/variables'
 @import './assets/icomoon/style'
 </style>

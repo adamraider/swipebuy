@@ -7,9 +7,9 @@
       template(v-if="message.type === 'graphic'")
         .message__graphic(@click="openProductDetail()")
           .message__graphic__text {{ message.text }}
-          .message__graphic__image
+          .message__graphic__image(:style="{ backgroundImage: `url(${itemImage})` }")
           .message__graphic__overlay
-        .message__details(@click="openProductDetail()") Details
+        .message__details(@click="openProductDetail()"): span Details
 </template>
 
 <script>
@@ -19,6 +19,9 @@ export default {
     message: {
       required: true,
       type: Object
+    },
+    itemImage: {
+      default: '/static/hoverboard.png'
     }
   },
   methods: {
@@ -35,7 +38,8 @@ export default {
         'message--brand': this.message.author === 'brand',
         'message--user': this.message.author === 'user',
         'message--link': this.message.type === 'graphic' && !this.typing,
-        'message--typing': this.typing
+        'message--typing': this.typing,
+        'message--sent': !this.typing
       }
     }
   }
@@ -47,7 +51,7 @@ export default {
   background-color: #F1F0F0
   width: auto
   font-size: 1rem
-  padding: 0.5rem 1.15rem
+  padding: 0.5rem 1.2rem 0.55rem
   line-height: 1.4
   border-radius: 1.2rem
   margin-left: 1rem
@@ -58,12 +62,18 @@ export default {
   overflow: hidden
   position: relative
   animation: popin
-  animation-duration: 0.2s
+  animation-duration: 0.1s
   animation-timing-function: cubic-bezier(.0,.0,.83,.67)
+
+  &--link.message--sent
+    animation: popin2
+    animation-duration: 0.175s
+
   &--brand
     transform-origin: left
   
   &--user
+    transform-origin: right
     margin-left: auto
     background: linear-gradient(to bottom right, #00BAFF, #0084FF)
     color: #fff
@@ -72,6 +82,7 @@ export default {
     display: flex
     align-items: center
     justify-content: center
+    padding-bottom: 0.5rem
     .dot
       width: 0.5rem
       height: 0.5rem
@@ -109,7 +120,6 @@ export default {
       bottom: 0
       width: 100%
       height: 100%
-      background-image: url(../assets/hoverboard.png)
       background-size: cover
       background-position: center
       z-index: 1
@@ -133,9 +143,9 @@ export default {
 
   &__details
     text-align: center
-    padding: 0.5rem 1rem
+    padding: 0.45rem 1rem 0.6rem
     font-weight: 500
-    border-color: #BBBBBB
+    border-color: #dadada
     border-style: solid
     border-top: 0
     border-left-width: 1px
@@ -151,10 +161,16 @@ export default {
 @keyframes popin
   0%
     transform: scale(0)
-  85%
-    transform: scale(1.1)
   100%
     transform: scale(1)
+
+@keyframes popin2
+  0%
+    transform: scale(0.95)
+    opacity: 0.85
+  100%
+    transform: scale(1)
+    opacity: 1
 
 @keyframes typing
   0%

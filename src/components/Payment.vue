@@ -2,23 +2,44 @@
   .fields
     .fields__content(@submit.prevent="")
       form.fields__inner(ref="fields", @submit.prevent="next()")
-        input(type="text" placeholder="Email")
-        input(type="text" placeholder="Card Number")
+        input.input(
+          type="text",
+          placeholder="Email",
+          v-validate="'required|email'",
+          name="email",
+          :class="{ 'input--error': errors.has('email') }"
+        )
+        input.input(
+          type="text",
+          placeholder="Card Number",
+          v-validate="'required|credit_card'",
+          name="card_number",
+          :class="{ 'input--error': errors.has('card_number') }"
+        )
         .inputs__flex
-          input(type="text" placeholder="MM/YY")
-          input(type="text" placeholder="CVC")
+          input.input(
+            type="text",
+            placeholder="MM/YY",
+            v-validate="'required'",
+            name="expiration",
+            :class="{ 'input--error': errors.has('expiration') }"
+          )
+          input.input(
+            type="text",
+            placeholder="CVC",
+            v-validate="'required'",
+            name="cvc",
+            :class="{ 'input--error': errors.has('cvc') }"
+          )
         .encryption
           .encryption__icon: i.icon-lock
           .encryption__text This website uses 256-bit SSL encryption. Your info is safe.
 
         button(type="submit") Purchase
-        button.btn--secondary(type="submit") Cancel
+        button.btn--secondary(type="button" @click.prevent="cancel()") Cancel
 </template>
 
 <script>
-// import _ from 'lodash'
-// import { mapGetters } from 'vuex'
-
 export default {
   name: 'Payment',
   mounted () {
@@ -32,13 +53,25 @@ export default {
       this.$store.commit('SET_CHAT_OFFSET', this.height)
     },
     next () {
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          this.$store.commit('CLOSE_ACTION')
+          this.$store.commit('PUSH_MESSAGE', {
+            author: 'user',
+            text: 'Done',
+            type: 'text'
+          })
+          this.$store.dispatch('next')
+        }
+      })
+    },
+    cancel () {
       this.$store.commit('CLOSE_ACTION')
       this.$store.commit('PUSH_MESSAGE', {
         author: 'user',
-        text: 'Done',
+        text: 'You suck',
         type: 'text'
       })
-      this.$store.dispatch('next')
     }
   },
   computed: {
@@ -68,33 +101,6 @@ $padding: 2rem
     padding: $padding $padding calc(50vh + #{$padding})
     border-radius: 1.5rem
     box-shadow: 0 0 35px rgba(0,0,0,0.2)
-
-  input
-    background-color: #F1F1F1
-    border: 0
-    outline: 0
-    margin-bottom: 0.5rem
-    width: 100%
-    padding: 0.6rem 1.2rem
-    border-radius: 6px
-
-  button
-    margin: 0 auto
-    display: block
-    width: auto
-    background: linear-gradient(to bottom right, #00BAFF, #0084FF)
-    outline: 0
-    border: 0
-    color: #fff
-    padding: 0.7rem 1.6rem
-    border-radius: 10rem
-  
-  .btn--secondary
-    background: none
-    color: rgba(0,0,0,0.5)
-    font-size: 0.85rem
-    padding: 0
-    margin-top: 0.85rem
 
 .encryption
   margin-top: 0.25rem

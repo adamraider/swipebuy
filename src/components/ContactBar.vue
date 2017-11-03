@@ -1,14 +1,24 @@
 <template lang="pug">
   .contact
     .brand
-      .brand__image
-      .brand__name Marty McFly
-    .about: i.icon-help-circle
+      .brand__image(:style="{ backgroundImage: `url(${brandImage})` }")
+      .brand__name {{ brandName }}
+    //- .about: i.icon-help-circle
 </template>
 
 <script>
 export default {
   name: 'ContactBar',
+  props: {
+    brandName: {
+      required: true,
+      type: String
+    },
+    brandImage: {
+      required: true,
+      type: String
+    }
+  },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
@@ -43,7 +53,6 @@ export default {
     width: 2.5rem
     height: 2.5rem
     border-radius: 3rem
-    background-image: url(../assets/marty.png)
     background-size: cover
     margin-bottom: 0.15rem  
   &__name

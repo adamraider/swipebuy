@@ -1,19 +1,21 @@
 <template lang="pug">
   .fields
-    .fields__content(@submit.prevent="")
+    .fields__content
       form.fields__inner(ref="fields", @submit.prevent="next()")
-        input(type="text" placeholder="Street Address")
-        input(type="text" placeholder="Apartment #")
-        input(type="text" placeholder="State")
-        input(type="text" placeholder="City")
-        button(type="submit") Done
-        //- button(type="submit") Cancel
+        .flex
+          input.input(type="text" v-validate="'required'", :class="{ 'input--error': errors.has('street_address') }", name="street_address" placeholder="Street Address")
+          input.input.input--aptnum(type="text" v-validate="'required'", :class="{ 'input--error': errors.has('apt_num') }", name="apt_num" placeholder="Apt. #")
+        input.input(type="text" v-validate="'required'", :class="{ 'input--error': errors.has('city') }", name="city" placeholder="City")
+        .flex
+          input.input(type="text" v-validate="'required'", :class="{ 'input--error': errors.has('postal_code') }", name="postal_code" placeholder="Postal Code")
+          input.input(type="text" v-validate="'required'", :class="{ 'input--error': errors.has('state') }", name="state" placeholder="State")
+
+        .actions
+          button(type="submit") Done
+          button.btn--secondary(@click.prevent="cancel()") Cancel
 </template>
 
 <script>
-// import _ from 'lodash'
-// import { mapGetters } from 'vuex'
-
 export default {
   name: 'Fields',
   mounted () {
@@ -27,13 +29,27 @@ export default {
       this.$store.commit('SET_CHAT_OFFSET', this.height)
     },
     next () {
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          this.$store.commit('CLOSE_ACTION')
+          this.$store.commit('PUSH_MESSAGE', {
+            author: 'user',
+            text: '20 West Derp St., 10232, New York NY!',
+            type: 'text'
+          })
+          this.$store.dispatch('next')
+        } else {
+
+        }
+      })
+    },
+    cancel () {
       this.$store.commit('CLOSE_ACTION')
       this.$store.commit('PUSH_MESSAGE', {
         author: 'user',
-        text: '20 West Derp St., 10232, New York NY!',
+        text: 'You suck',
         type: 'text'
       })
-      this.$store.dispatch('next')
     }
   },
   computed: {
@@ -46,7 +62,7 @@ export default {
 
 <style lang="sass" scoped>
 @import '../sass/vars'
-$padding: 2rem
+$padding: 2em
 .fields
   width: 100%
   position: fixed
@@ -56,38 +72,30 @@ $padding: 2rem
   flex-direction: column
   animation: actionsIn
   animation-duration: 0.25s
+  font-size: 0.9rem
 
   &__content
     background-color: #fff
-    margin: 0 1rem
+    margin: 0 0.5em
     padding: $padding $padding calc(50vh + #{$padding})
-    border-radius: 1.5rem
-    box-shadow: 0 0 35px rgba(0,0,0,0.2)
+    border-radius: 1em
+    box-shadow: 0 0 100px rgba(0,0,0,0.35)
 
-  input
-    background-color: #F1F1F1
-    border: 0
-    outline: 0
-    margin-bottom: 0.5rem
-    width: 100%
-    padding: 0.6rem 1.2rem
-    border-radius: 6px
+.flex
+  display: flex
+  input:not(:last-child)
+    margin-right: 0.5em
 
-  button
-    margin: 0 auto
-    display: block
-    width: auto
-    background: linear-gradient(to bottom right, #00BAFF, #0084FF)
-    outline: 0
-    border: 0
-    color: #fff
-    padding: 0.7rem 1.6rem
-    border-radius: 10rem
+.input--aptnum
+  width: 50%
+
+.actions
+  margin-top: 0.5rem
 
 @keyframes actionsIn
   0%
     opacity: 0
-    transform: translateY(2rem)
+    transform: translateY(2em)
   100%
     opacity: 1
     transform: translateY(0)

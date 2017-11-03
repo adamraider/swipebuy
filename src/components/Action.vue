@@ -59,14 +59,10 @@ export default {
   width: 100%
   align-items: flex-start
   flex-direction: row
-  padding: 1.5rem
-  animation: actionsIn
-  animation-duration: 0.25s
+  padding: 2rem
   position: fixed
   bottom: 0
   z-index: 10
-  background-color: #fff
-  border-top: 1px solid #D9D9D9
 
 @keyframes actionsIn
   0%
@@ -76,10 +72,14 @@ export default {
     opacity: 1
     transform: translateY(0)
 
+@for $i from 1 through 10
+  .btn:nth-child(#{$i})
+    animation-delay:(#{$i*0.15s-0.1s})
+
 .btn
   width: 100%
   height: 2.25em
-  padding: 0 1.5em
+  padding: 0 1.5em 0.1em
   border-radius: 0.35em
   display: flex
   align-items: center
@@ -87,6 +87,12 @@ export default {
   font-size: 1.25rem
   line-height: 1
   position: relative
+  margin: 0
+  animation: actionsIn
+  animation-duration: 0.5s
+  animation-fill-mode: forwards
+  opacity: 0
+  box-shadow: 0 1px 1px rgba(0,0,0,0.25)
   
   &::after
     position: absolute
@@ -102,10 +108,9 @@ export default {
     display: none
 
   &--secondary
-    border: 2px solid rgba(0,0,0,0.3)
-    background-color: #fff
-    font-weight: 600
-    color: rgba(0,0,0,0.5)
+    background-color: rgba(0,0,0,0.075)
+    font-weight: 500
+    color: rgba(0,0,0,0.45)
     &::after
       border-color: rgba(0,0,0,0.3)
   
