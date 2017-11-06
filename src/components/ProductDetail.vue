@@ -1,7 +1,8 @@
 <template lang="pug">
   .product
     .product__close(@click="closeProductDetail()"): i.icon-x
-    .product__image(:style="{ backgroundImage: `url(${itemImage})` }")
+    .product__image.js_slider.carousel-group
+      .carousel-cell(v-for="image in itemImages", :style="{ backgroundImage: `url(${image})` }")
     .product__info
       .product__info__primary
         .product__name {{ itemName }}
@@ -20,6 +21,8 @@
 </template>
 
 <script>
+import Flickity from 'flickity'
+
 export default {
   name: 'ProductDetail',
   props: {
@@ -31,13 +34,19 @@ export default {
       required: true,
       type: String
     },
-    itemImage: {
+    itemImages: {
       required: true,
-      type: String
+      type: Array
     },
     itemDescription: {
       type: String
     }
+  },
+  mounted () {
+    /* eslint-disable no-new */
+    new Flickity('.js_slider', {
+      prevNextButtons: false
+    })
   },
   methods: {
     closeProductDetail () {
@@ -47,7 +56,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 .product
   width: 100%
   min-height: 100vh
@@ -69,14 +78,12 @@ export default {
     right: 1rem
     font-size: 1.5em
     color: #fff
-    text-shadow: 0 1px 1px rgba(0,0,0,0.25)
+    text-shadow: 0 1px 0 rgba(0,0,0,0.35)
+    z-index: 1
     cursor: pointer
 
   &__image
     width: 100% 
-    padding-bottom: 100%
-    background-size: cover
-    background-position: center
 
   &__info
     padding: 1rem
@@ -135,4 +142,22 @@ export default {
     transform: scale(1)
     opacity: 1
 
+.frame
+  position: relative
+  overflow: hidden
+  white-space: nowrap
+
+.slides
+  display: inline-block
+
+.carousel-cell
+  position: relative
+  display: inline-block
+  width: 100vw
+  padding-bottom: 100vw
+  background-size: cover
+  background-position: center
+
+.flickity-page-dots
+  bottom: 1rem
 </style>

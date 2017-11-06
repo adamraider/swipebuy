@@ -9,7 +9,10 @@ Vue.use(Vuex)
 
 const state = {
   loading: true,
-  merchant: null,
+  merchant: {
+    brand: {},
+    item: {}
+  },
   chatHistory: [],
   actionStep: null,
   chatActionable: false,

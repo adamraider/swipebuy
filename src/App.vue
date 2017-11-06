@@ -1,13 +1,12 @@
 <template lang="pug">
-  #app
-    template(v-if="loading")
-      span loading
+  #app(:class="{ 'app--scrollLocked': productDetailOpen }")
+    .loading(v-if="loading")
     template(v-else)
       ContactBar(:brandName="brandName", :brandImage="brandImage")
       Conversation
-      ProductDetail(v-if="productDetailOpen", :itemName="itemName", :itemImage="itemImage", :itemDescription="itemDescription", :itemPrice="itemPrice")
+      ProductDetail(v-if="productDetailOpen", :itemName="itemName", :itemImages="itemImages", :itemDescription="itemDescription", :itemPrice="itemPrice")
       Action(v-if="showAction")
-      Fields(v-if="showAddress")
+      AddressForm(v-if="showAddress")
       Payment(v-if="showPayment")
 
 </template>
@@ -20,7 +19,7 @@ import ContactBar from './components/ContactBar'
 import Conversation from './components/Conversation'
 import ProductDetail from './components/ProductDetail'
 import Action from './components/Action'
-import Fields from './components/Fields'
+import AddressForm from './components/AddressForm'
 import Payment from './components/Payment'
 
 export default {
@@ -30,7 +29,7 @@ export default {
     Conversation,
     ProductDetail,
     Action,
-    Fields,
+    AddressForm,
     Payment
   },
   data () {
@@ -40,7 +39,9 @@ export default {
   },
   mounted () {
     marty().then(marty => {
-      this.$store.dispatch('setupMerchant', { merchant: marty })
+      setTimeout(() => {
+        this.$store.dispatch('setupMerchant', { merchant: marty })
+      }, 0)
     })
   },
   computed: {
@@ -60,7 +61,7 @@ export default {
       'brandName',
       'brandImage',
       'itemName',
-      'itemImage',
+      'itemImages',
       'itemPrice',
       'itemDescription',
       'loading'
@@ -77,4 +78,16 @@ export default {
 @import './sass/forms'
 @import './assets/icomoon/variables'
 @import './assets/icomoon/style'
+@import '../node_modules/flickity/dist/flickity.min.css'
+
+.app--scrollLocked
+  max-height: 100vh
+  overflow: hidden
+
+.loading
+  width: 100%
+  height: 100vh
+  display: flex
+  align-items: center
+  justify-content: center
 </style>

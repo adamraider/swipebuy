@@ -22,7 +22,7 @@ export const itemDescription = state => state.merchant.item.description
 
 export const itemPrice = state => state.merchant.item.price
 
-export const itemImage = state => state.merchant.item.image
+export const itemImages = state => state.merchant.item.images
 
 export const availableActions = state => {
   if (state.chatActionable && state.merchant[state.currentState].action) {

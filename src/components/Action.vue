@@ -109,8 +109,7 @@ export default {
 
   &--secondary
     background-color: rgba(0,0,0,0.075)
-    font-weight: 500
-    color: rgba(0,0,0,0.45)
+    color: #8d8d8d
     &::after
       border-color: rgba(0,0,0,0.3)
   

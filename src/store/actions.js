@@ -15,6 +15,9 @@ function nextStep (step) {
 
 export const setupMerchant = (store, payload) => {
   store.commit('INIT_MERCHANT', payload.merchant)
+  if (payload.merchant.brand.title) {
+    document.title = payload.merchant.brand.title
+  }
   store.commit('CHANGE_STATE', 'introduction')
   store.commit('APP_READY')
   store.dispatch('renderPhrase', {
@@ -32,9 +35,10 @@ export function renderPhrase (store, payload) {
   store.commit('CLOSE_ACTION')
   Vue.set(message, 'typing', true)
   store.commit('PUSH_MESSAGE', message)
+  Vue.nextTick(() => window.scrollBy(0, 10000000))
   setTimeout(() => {
     store.commit('STOP_TYPING', message.id)
-    window.scrollBy(0, 10000000)
+    Vue.nextTick(() => window.scrollBy(0, 10000000))
     if (arr[index + 1]) {
       setTimeout(() => {
         store.dispatch('renderPhrase', {
@@ -44,7 +48,10 @@ export function renderPhrase (store, payload) {
       }, process.env.MESSAGE_TIMEOUT)
     } else {
       setTimeout(() => {
-        store.commit('OPEN_ACTION')
+        if (store.state.merchant[store.state.currentState].action) {
+          store.commit('OPEN_ACTION')
+          Vue.nextTick(() => window.scrollBy(0, 10000000))
+        }
       }, process.env.MESSAGE_TIMEOUT)
     }
   }, timeout)

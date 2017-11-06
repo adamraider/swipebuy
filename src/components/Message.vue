@@ -59,11 +59,11 @@ export default {
   color: #2E2E2E
   min-height: 2.25rem
   max-width: 17rem
-  overflow: hidden
   position: relative
   animation: popin
   animation-duration: 0.1s
   animation-timing-function: cubic-bezier(.0,.0,.83,.67)
+  overflow: hidden
 
   &--link.message--sent
     animation: popin2
@@ -111,6 +111,7 @@ export default {
     position: relative
     display: flex
     align-items: flex-end
+    overflow: hidden
 
     &__image
       position: absolute

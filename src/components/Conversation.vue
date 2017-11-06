@@ -1,5 +1,5 @@
 <template lang="pug">
-  .conversation(ref="conversation", :class="{ 'conversation--action': chatActionable }", :style="conversationStyle")
+  .conversation(ref="conversation", :class="{ 'conversation--action': chatActionable }", :style="{ paddingBottom: `calc(${offset}px + 1rem)` }")
     message(v-for="(m, index) in chatHistory", :message="m", key="index")
 </template>
 
@@ -11,12 +11,8 @@ export default {
   name: 'Conversation',
   components: { Message },
   computed: {
-    conversationStyle () {
-      const offset = this.chatActionable ? this.chatHeightOffset : 0
-      return {
-        // 1rem for spacing, 4rem for the contact bar
-        paddingBottom: `calc(${offset}px + 5rem)`
-      }
+    offset () {
+      return this.chatActionable ? this.chatHeightOffset : 0
     },
     ...mapGetters([
       'chatActionable',
@@ -36,7 +32,7 @@ export default {
   flex-direction: column
   margin-top: 4rem
   padding-top: 1rem
+  padding-bottom: 1rem
   align-items: flex-start
   flex-direction: column
-  transition: padding-bottom 0.25s ease
 </style>

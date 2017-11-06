@@ -10,20 +10,36 @@ body
 input, button, textarea
   font-family: inherit
 
-button
+.btn
   margin: 0 auto
   display: block
   width: auto
-  background: linear-gradient(to bottom right, #00BAFF, #0084FF)
   outline: 0
   border: 0
-  color: #fff
   padding: 0.7rem 1.6rem
   border-radius: 10rem
+  width: calc(100% - 2.5em)
+  font-weight: 600
+  &:not(:last-child)
+    margin-bottom: 0.75em
 
-.btn--secondary
-  background: none
-  color: rgba(0,0,0,0.5)
-  font-size: 0.85rem
-  padding: 0
-  margin-top: 0.85rem
+  &--primary
+    color: #fff
+    background-color: #048aff
+
+  &--secondary
+    background: none
+    color: #8d8d8d
+    font-size: 0.85rem
+    padding: 0
+    margin-top: 0.85rem
+
+
+.form
+  &__header
+    display: flex
+
+  &__heading
+    font-size: 1.5rem
+    font-weight: bold
+    margin-bottom: 0.75em

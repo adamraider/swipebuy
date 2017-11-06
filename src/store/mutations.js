@@ -41,8 +41,8 @@ export const STOP_TYPING = (state, messageId) => {
 }
 
 export const OPEN_ACTION = (state) => {
-  state.chatActionable = true
   state.actionStep = nextAction(state.actionStep)
+  state.chatActionable = true
 }
 
 export const CLOSE_ACTION = (state) => {
